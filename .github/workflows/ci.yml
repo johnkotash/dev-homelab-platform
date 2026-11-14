@@ -6,4 +6,31 @@ on:
     pull_request:
 
 permissions:
-    contents: read 
+    contents: read
+
+jobs:
+    test:
+        strategy:
+            matrix:
+                python: ["3.12", "3.13"]
+        runs-on: ubuntu-latest
+        env:
+            PROXMOX_URL: https://example.invalid:8006
+            PROXMOX_TOKEN: dummy
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-python@v5
+              with:
+                python-version: ${{ matrix.python }}
+                cache: pip
+            
+            - name: Install Dependencies
+              run: pip install -r requirements.txt
+
+            - name: Lint
+              run: ruff check .
+            
+            - name: Test
+              run: pytest -v 
+            
