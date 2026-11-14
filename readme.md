@@ -1,6 +1,6 @@
 # dev-homelab-platform
 
-![CI](https://github.com/<your-username>/dev-homelab-platform/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/jkotash/dev-homelab-platform/actions/workflows/ci.yml/badge.svg)
 
 A FastAPI service that sits in front of a Proxmox VE cluster and exposes node and VM information through a clean REST API.
 
