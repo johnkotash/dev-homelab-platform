@@ -36,14 +36,15 @@ jobs:
     secrets-scan:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
-            
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
-            - uses: gitleaks/gitleaks-action@v2
-              env:
-                GITHUB_TOKEN: ${{ secrets.GUTHUB_TOKEN }}
+        - name: Gitleaks
+          run: |
+            docker run --rm -v "${{ github.workspace }}:/repo" \
+                ghcr.io/gitleaks/gitleaks:v8.28.0 \
+                git /repo --redact --verbose
     dependency-scan:
         runs-on: ubuntu-latest
         permissions:
